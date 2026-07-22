@@ -61,8 +61,8 @@ export class ProductFormComponent implements OnInit {
         next: res => {
           this.productForm.reset()
           this.snackbar.opensnackbar(res.msg)
-          this.router.navigate(['products', product.pid],{
-            queryParams : {cr : product.canReturn}
+          this.router.navigate(['products', product.pid], {
+            queryParams: { cr: product.canReturn }
           })
         },
         error: err => {
@@ -99,18 +99,21 @@ export class ProductFormComponent implements OnInit {
           this.productForm.reset()
           this.isinEditMode = false
           this.snackbar.opensnackbar(res.msg)
-          this.router.navigate(['products', updatedobj.pid],{
-            queryParams : {cr : updatedobj.canReturn}
+          this.router.navigate(['products', updatedobj.pid], {
+            queryParams: { cr: updatedobj.canReturn }
           })
         },
         error: err => {
           console.log(err);
-
         }
       })
     }
-
-
+  }
+  canDeactivate(): boolean {
+    if (!!this.productForm.dirty && this.isinEditMode) {
+      return confirm(`Are You Sure You Want To Discard The Changes !!`)
+    }
+    return true
   }
 
 }

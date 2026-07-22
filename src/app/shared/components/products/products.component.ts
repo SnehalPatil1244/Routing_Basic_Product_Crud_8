@@ -22,25 +22,30 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private snackbar: SnackbarService,
     private matdialog: MatDialog
-  ) { }
-
-  ngOnInit(): void {
-    this.getproducts()
-  }
-
-  getproducts() {
-    this.routes.params.subscribe(param => {
-      this.productId = param['productId']
-      if (this.productId) {
-        this.productservice.fetchproductsById(this.productId)
-          .subscribe({
-            next: data => {
-              this.productobj = data
-            }
-          })
-      }
+  ) {
+    this.routes.data.subscribe(res => {
+      this.productobj = res['products']
+      this.productId = res['products'].pid
     })
   }
+
+  ngOnInit(): void {
+    // this.getproducts()
+  }
+
+  // getproducts() {
+  //   this.routes.params.subscribe(param => {
+  //     this.productId = param['productId']
+  //     if (this.productId) {
+  //       this.productservice.fetchproductsById(this.productId)
+  //         .subscribe({
+  //           next: data => {
+  //             this.productobj = data
+  //           }
+  //         })
+  //     }
+  //   })
+  // }
 
   onRemove() {
     let config = new MatDialogConfig()
@@ -54,10 +59,10 @@ export class ProductsComponent implements OnInit {
           next: res => {
             this.snackbar.opensnackbar(res.msg)
             this.productservice.fetchproducts().subscribe({
-              next : res => {
-                   this.router.navigate(['/products',res[0].pid],{
-                    queryParams : {cr : res[0].canReturn}
-                   })
+              next: res => {
+                this.router.navigate(['/products', res[0].pid], {
+                  queryParams: { cr: res[0].canReturn }
+                })
               }
             })
           }, error: err => {
@@ -68,12 +73,12 @@ export class ProductsComponent implements OnInit {
       }
     })
   }
-
-  redirectToEdit(){
-    this.router.navigate(['/products' , this.productId , 'edit'],{
-      queryParamsHandling : 'preserve',
-      relativeTo : this.routes
+  redirectToEdit() {
+    this.router.navigate(['/products', this.productId, 'edit'], {
+      queryParamsHandling: 'preserve',
+      relativeTo: this.routes
     })
   }
+
 
 }

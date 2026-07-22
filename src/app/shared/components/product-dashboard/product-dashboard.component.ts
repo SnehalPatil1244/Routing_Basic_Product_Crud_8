@@ -4,6 +4,7 @@ import { AppRoutingModule } from "src/app/app-routing.module";
 import { IProduct } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-dashboard',
@@ -13,23 +14,27 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 export class ProductDashboardComponent implements OnInit {
   product !: Array<IProduct>
 
-  constructor(private productservice: ProductService) { }
+  constructor(private productservice: ProductService,
+    private route: ActivatedRoute
+  ) {
+    this.product = this.route.snapshot.data['products']
+  }
 
   ngOnInit(): void {
-    this.productservice.fetchproducts()
-      .subscribe({
-        next: data => {
-          this.product = data
-        },
-        error: err => {
-          console.log(err);
+    // this.productservice.fetchproducts()
+    //   .subscribe({
+    //     next: data => {
+    //       this.product = data
+    //     },
+    //     error: err => {
+    //       console.log(err);
 
-        }
-      })
+    //     }
+    //   })
 
   }
 
-  trackbyfun(index : number, pro : IProduct){
+  trackbyfun(index: number, pro: IProduct) {
     return pro.pid
   }
 
