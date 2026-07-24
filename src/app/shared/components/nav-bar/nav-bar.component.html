@@ -7,10 +7,10 @@
         </div>
         <div class="col-md-8">
             <div class="navbar-menu">
-                <li class="mr-3"><a routerLink="home">Home</a></li>
-                <li class="mr-3"><a (click)="ongouser()">Users</a></li>
-                <li class="mr-3"><a (click)="ongoproduct()">Products</a></li>
-                <li class="mr-3"><a (click)="ongofairs()">Fairs</a></li>
+                <li class="mr-3"><a routerLink="home" [class.active-link]="router.url === '/home'">Home</a></li>
+                <li class="mr-3"><a (click)="ongouser()" [class.active-link]="router.url.startsWith('/users')">Users</a></li>
+                <li class="mr-3"><a (click)="ongoproduct()"[class.active-link]="router.url.startsWith('/products')">Products</a></li>
+                <li class="mr-3"><a (click)="ongofairs()"[class.active-link]="router.url.startsWith('/fairs')">Fairs</a></li>
                 <strong class="text-black badge-warning p-2" style="border-radius: 5px;">{{userRole}}</strong>
 
                 <button class="ml-3" mat-raised-button color="warn" (click)="onlogout()">LogOut</button>

@@ -26,7 +26,9 @@ import { FairsDetailsComponent } from './shared/components/fairs-details/fairs-d
 import { FairsDashBoardComponent } from './shared/components/fairs-dash-board/fairs-dash-board.component';
 import { HomepageComponent } from './shared/components/homepage/homepage.component';
 import { AuthComponent } from './shared/components/auth/auth.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthInterceptor } from './shared/services/Auth-Interceptor.service';
 
 @NgModule({
   declarations: [
@@ -59,9 +61,14 @@ import { HttpClientModule } from '@angular/common/http';
     MatChipsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
