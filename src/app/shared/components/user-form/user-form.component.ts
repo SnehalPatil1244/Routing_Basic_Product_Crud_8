@@ -54,7 +54,7 @@ export class UserFormComponent implements OnInit {
         }
         else {
           this.formcontrols['address'].get('permanent')?.reset()
-          this.formcontrols['address'].get('permanent')?.enablet()
+          this.formcontrols['address'].get('permanent')?.enable()
         }
       })
   }
