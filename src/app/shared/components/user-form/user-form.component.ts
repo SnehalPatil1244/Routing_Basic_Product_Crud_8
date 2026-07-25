@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserFormComponent implements OnInit {
   UserForm !: FormGroup
   isinEditMode: boolean = false
-  edituser !: Iuser
+  edituser ?: Iuser
   userId !: string
 
   constructor(private userservice: UsersService,
@@ -49,12 +49,12 @@ export class UserFormComponent implements OnInit {
           this.formcontrols['address'].get('permanent')?.patchValue(currentAdd)
           this.formcontrols['address'].get('permanent')?.disable()
         } else if (this.isinEditMode && !val) {
-          this.formcontrols['address'].get('permanent')?.patchValue(this.edituser.address.permanent)
+          this.formcontrols['address'].get('permanent')?.patchValue(this.edituser?.address.permanent)
           this.formcontrols['address'].get('permanent')?.enable()
         }
         else {
           this.formcontrols['address'].get('permanent')?.reset()
-          this.formcontrols['address'].get('permanent')?.disable()
+          this.formcontrols['address'].get('permanent')?.enablet()
         }
       })
   }
